@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && npx tsc",
     "start": "node dist/app.js",
-    "preserve": "npm run bulid",
+    "preserve": "npm run build",
     "serve": "concurrently \"npx tsc -w\" \"nodemon dist/app.js\""
   },
   "keywords": [],
@@ -41,7 +41,7 @@
     "@types/multer": "^2.0.0"
   },
   "engines" :{
-    "node": "22.19.0 ",
+    "node": "22.19.0",
     "npm" :"10.9.3"
   }
 }
