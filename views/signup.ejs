@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <%-include ('partials/header.ejs') %>
+
+</head>
+<body>
+
+<%-include ('partials/nav.ejs') %>
+   
+
+
+<div class="container  text-center">
+    <h3>Create Account</h3>
+    <form method="post" action="/signup">
+        <input type="text" class="form-control input-form" name="username" placeholder="Username" value="<%= oldInput.username ||'' %>">
+        <%const usernameError =  validationError.find(err => err.path === 'username') ;%>
+        <%if(usernameError){%>
+            <p class="alert alert-danger"> <%=  usernameError.msg %></p>
+        <%}%>
+
+        <input type="email" class="form-control input-form" name="email" placeholder="Email" value="<%= oldInput.email ||'' %>">
+
+        <%const emailError =  validationError.find(err => err.path === 'email') ;%>
+        <%if(emailError){%>
+            <p class="alert alert-danger"> <%= emailError.msg %></p>
+        <%}%>
+
+        <input type="password" class="form-control input-form" name="password" placeholder="Password" value="<%= oldInput.password ||'' %>">
+
+        <%const passwordError =  validationError.find(err => err.path === 'password') ;%>
+        <%if(passwordError){%>
+            <p class="alert alert-danger"> <%=  passwordError.msg %></p>
+        <%}%>
+        <input type="password" class="form-control input-form" name="confirmPassword" placeholder="Confirm Password" value="<%= oldInput.confirmPassword ||'' %>">
+
+        <%const confirmPasswordError =  validationError.find(err => err.path === 'confirmPassword') ;%>
+        <%if(confirmPasswordError){%>
+            <p class="alert alert-danger"> <%=  confirmPasswordError.msg %></p>
+        <%}%>
+        <input type="submit" class="btn btn-primary input-form" value="Create Account">
+
+    </form>
+    <br>
+
+    <%if(authError && authError.length > 0){ %>
+        <p class="alert alert-danger"><%= authError %></p>
+            
+    <%}%>
+    <div>
+        Already have account ? <a href="/login"> Login</a>
+    </div>
+
+</div>
+</body>
+
+
+<%-include ('partials/footer.ejs') %>
+
+</html>

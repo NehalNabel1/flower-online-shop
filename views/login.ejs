@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <%-include ('partials/header.ejs') %>
+
+</head>
+<body>
+
+<%-include ('partials/nav.ejs') %>
+   
+
+
+<div class="container  text-center">
+    <h3>Login</h3>
+    <form method="post" action="/login">
+        <input type="email" class="form-control input-form" name="email" placeholder="Email">
+        <input type="password" class="form-control input-form" name="password" placeholder="Password">
+        <input type="submit" class="btn btn-primary input-form" value="Login">
+
+    </form>
+    <br>
+    <%if(authError && authError.length > 0 ){  %>
+        <p class=" alert alert-danger"><%= authError %></p>
+    <%}  %>
+    <div>
+        Create new account <a href="/signup"> Signup</a>
+    </div>
+
+</div>
+</body>
+
+
+<%-include ('partials/footer.ejs') %>
+
+</html>

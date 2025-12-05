@@ -1,0 +1,47 @@
+{
+  "name": "online-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bulid": "rimraf dist && npx tsc",
+    "start": "node dist/app.js",
+    "preserve": "npm run bulid",
+    "serve": "concurrently \"npx tsc -w\" \"nodemon dist/app.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/node": "^24.8.1",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "concurrently": "^9.2.1",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^5.0.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.3.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.1",
+    "multer": "^2.0.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/connect-flash": "^0.0.40",
+    "@types/connect-mongodb-session": "^2.4.8",
+    "@types/multer": "^2.0.0"
+  },
+  "engines" :{
+    "node": "22.19.0 ",
+    "npm" :"10.9.3"
+  }
+}

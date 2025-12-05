@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <%-include ('partials/header.ejs') %>
+
+</head>
+<body>
+
+    <%-include ('partials/nav.ejs') %>
+   
+
+
+   
+ <%if(orders.length === 0){ %>
+    <p class="alert alert-danger text-center fs-4"> There is no Orders</p>
+   <%}else{ %>
+    <!-- Order Header Information (one time only) -->
+     <%orders.forEach((order) =>{ %>
+
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- LEFT: Order Details -->
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h4 class="mb-3">Order Information</h4>
+                <div class="order-info-label">Address :</div>
+                <div class="order-info-value"> <%=  order.address   %></div>
+                <div class="order-info-label">Status : </div>
+                <div class="order-info-value"><span class="status-badge
+                    <%if( order.status === "Pending"){%> status-pending <%}%>
+                    <%if( order.status === "Processing"){%> status-processing <%}%>
+                    <%if( order.status === "Shipped"){%> status-shipped <%}%>
+                    <%if( order.status === "Cancelled"){%> status-cancelled <%}%>
+                    
+                    "> <%=  order.status   %> </span> </div>
+                <div class="order-info-label">Total Price : </div>
+                <div class="order-info-value"><%=  order.totalPrice   %></div>
+                <div class="order-info-label">Created At :</div>
+                <div class="order-info-value"> <%=   order.createdDate.toLocaleString()    %></div>
+
+            </div>
+        </div>
+    <!-- RIGHT: Items Table -->
+    <div class="col-md-8">
+        <div class="card p-3 shadow-sm">
+            <h4 class="mb-3">Items</h4>
+    <table border="1" class="table table-bordered align-middle">
+        <thead class ="table-dark">
+           <tr>
+            <th> No </th>
+            <th>Product Name</th>
+            <th>Amount</th>
+            <th>Price</th>  
+                
+           </tr>
+        </thead >
+        <tbody>
+            <%order.items.forEach((item ,index) =>{ %>
+                
+                <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.amount %></td>
+                    <td><%=  item.price * item.amount   %>$</td>
+                </tr>    
+
+
+               
+           <% }) %>
+                    <!-- Cancel single order -->
+                    <%if( order.status === "Pending" ){%>
+                        <tr>
+                        <td colspan="4" class="text-center">
+                            <form action="/order/delete" method="post">
+                                <input type="hidden" name="orderId" value="<%= order._id %>" >
+                                <input type="submit" value="Cancle" class="btn btn-danger">
+                            </form>
+                        </td>                    
+                 </tr>   
+                 <%}%>            
+           
+        
+        </tbody>
+    </table>
+    </div>
+    </div>
+    
+</div>
+</div>
+<%}) %>
+
+    <!-- Show OrderError (one time) -->
+    <%if( OrderError.length > 0 ){%>
+        <p class="alert alert-danger"> <%=OrderError[0].msg %></p>
+    <%}%>
+
+
+
+<%}%>
+
+<%-include ('partials/footer.ejs') %>
+</body>
+
+
+
+
+
+</html>

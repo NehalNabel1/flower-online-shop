@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <%-include ('partials/header.ejs') %>
+
+</head>
+<body>
+
+<%-include ('partials/nav.ejs') %>
+   
+
+
+<div class="container  text-center">
+    <h3>Order verification</h3>
+    <form method="post" action="/order">
+        <input type="text" placeholder="First Name" name="fName" class="form-control input-form">
+        <input type="text" placeholder="Last Name" name="lName" class="form-control input-form">
+         <input type="text" placeholder="City" name="city" class="form-control input-form">
+        <input type="text" placeholder="Address" name="address" class="form-control input-form">
+        <input type="tel" placeholder="Phone number" name="phoneNumber" class="form-control input-form">
+        <input type="submit" value="Submit" class="btn btn-success input-form">
+    </form>
+   
+
+</div>
+    <!-- Show OrderError (one time) -->
+    <%if( OrderError.length > 0){%>
+        <p class="alert alert-danger"> <%=OrderError[0].msg %></p>
+    <%}%>
+</body>
+
+
+<%-include ('partials/footer.ejs') %>
+
+
+
+</html>
