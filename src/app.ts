@@ -15,6 +15,7 @@ import {cartRouter} from './routes/cart.routes.js'
 import {orderRouter} from './routes/order.routes.js'
 import {adminRouter} from './routes/admin.routes.js'
 import {setIsAdmin} from './middleware/setIsAdmin.js'
+import {setIsUser} from './middleware/setIsUser.js'
 
 import path from 'path'
 import mongoose from 'mongoose'
@@ -60,14 +61,9 @@ app.use(express.static('assets'));
 app.use(express.static('images'));
 
 // Apply the middleware globally
-app.use((request : Request , response : Response , next : NextFunction) =>{
-    response.locals.isUser = request.session.userId ?? false;
-    
-    next();
-
-})
-
+app.use(setIsUser);
 app.use(setIsAdmin);
+
 //routers
 app.use('/',homeRouter);
 app.use('/',authRouter);

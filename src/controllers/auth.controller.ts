@@ -5,7 +5,7 @@ import { validationResult } from 'express-validator';
 
 export const auth_login_get = (request :Request , response : Response)=>{
     const authError = request.flash('authError');
-    response.render('login' , {authError , pageTitle : 'Login', UserId :request.session.userId });    
+    response.render('login' , {authError , pageTitle : 'Login' });    
 
 }
 

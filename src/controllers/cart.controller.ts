@@ -10,7 +10,7 @@ export const cart_add_get = async(request : Request , response :Response) =>{
         const items = await CartModel.getItemByUser(request.session.userId as string);
         const validationErrorRaw = request.flash('validationError')[0];
         const validationError =  validationErrorRaw ? JSON.parse(validationErrorRaw) : [];        
-        response.render('cart' , {items , UserId : request.session.userId , pageTitle : 'Cart', validationError});
+        response.render('cart' , {items , pageTitle : 'Cart', validationError , UserId : request.session.userId});
                 
     }
 

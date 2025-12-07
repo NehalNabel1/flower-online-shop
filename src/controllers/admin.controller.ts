@@ -18,8 +18,7 @@ export const admin_addProducts_get = async(request :Request , response : Respons
             validationError ,
             oldInput,
             successMsg,
-            pageTitle : 'Add Product',
-            isAdmin : true
+            pageTitle : 'Add Product'           
 
         })
 

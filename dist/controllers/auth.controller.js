@@ -2,7 +2,7 @@ import * as AuthModel from '../models/auth.model.js';
 import { validationResult } from 'express-validator';
 export const auth_login_get = (request, response) => {
     const authError = request.flash('authError');
-    response.render('login', { authError, pageTitle: 'Login', UserId: request.session.userId });
+    response.render('login', { authError, pageTitle: 'Login' });
 };
 export const auth_login_post = async (request, response) => {
     try {

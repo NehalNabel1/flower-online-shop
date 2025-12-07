@@ -7,9 +7,9 @@ export const order_add_get = async (request, response) => {
         const OrderError = request.flash('OrderError');
         const orders = await OrderModel.getOrders(request.session.userId);
         if (!orders || orders.length === 0) {
-            return response.render('order', { pageTitle: 'Order', OrderError, orders: [], UserId: request.session.userId });
+            return response.render('order', { pageTitle: 'Order', OrderError, orders: [] });
         }
-        return response.render('order', { pageTitle: 'Order', OrderError, orders, UserId: request.session.userId });
+        return response.render('order', { pageTitle: 'Order', OrderError, orders });
     }
     catch (error) {
         console.log('Error in adding orders :', error);

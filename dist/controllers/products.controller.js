@@ -6,7 +6,7 @@ export const product_display_get = async (request, response) => {
             return response.status(400).send('Product ID is required');
         }
         const product = await ProductModel.getProductsById(id);
-        response.render('product', { product, pageTitle: 'Product', UserId: request.session.userId });
+        response.render('product', { product, pageTitle: 'Product' });
     }
     catch (error) {
         console.log('Error fetching product:', error);
@@ -15,6 +15,6 @@ export const product_display_get = async (request, response) => {
 };
 export const product_displayFirst_get = (request, response) => {
     ProductModel.getFirstProduct().then(product => {
-        response.render('product', { pageTitle: 'Product', product, isUser: request.session.userId });
+        response.render('product', { pageTitle: 'Product', product });
     });
 };

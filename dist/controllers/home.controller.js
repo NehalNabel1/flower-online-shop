@@ -13,7 +13,7 @@ export const product_home_get = async (request, response) => {
         }
         const validationErrorRaw = request.flash('validationError')[0];
         const validationError = validationErrorRaw ? JSON.parse(validationErrorRaw) : [];
-        response.render('index', { products, pageTitle: 'Home', validationError, UserId: request.session.userId });
+        response.render('index', { products, pageTitle: 'Home', validationError });
     }
     catch (error) {
         console.log('Error fetching products:', error);

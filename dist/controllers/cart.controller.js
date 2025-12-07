@@ -6,7 +6,7 @@ export const cart_add_get = async (request, response) => {
         const items = await CartModel.getItemByUser(request.session.userId);
         const validationErrorRaw = request.flash('validationError')[0];
         const validationError = validationErrorRaw ? JSON.parse(validationErrorRaw) : [];
-        response.render('cart', { items, UserId: request.session.userId, pageTitle: 'Cart', validationError });
+        response.render('cart', { items, pageTitle: 'Cart', validationError, UserId: request.session.userId });
     }
     catch (error) {
         console.log('Error in Add item to cart :', error);

@@ -9,10 +9,10 @@ export const order_add_get = async(request :Request  ,response :Response)=>{
         const OrderError = request.flash('OrderError');
         const orders = await OrderModel.getOrders(request.session.userId as string);
         if(!orders || orders.length === 0  ){
-             return response.render('order' , {pageTitle : 'Order', OrderError , orders :[] , UserId :request.session.userId } );
+             return response.render('order' , {pageTitle : 'Order', OrderError , orders :[] } );
         }
        
-        return response.render('order' , { pageTitle : 'Order' , OrderError , orders , UserId :request.session.userId } );
+        return response.render('order' , { pageTitle : 'Order' , OrderError , orders  } );
 
     }
 

@@ -15,8 +15,7 @@ export const admin_addProducts_get = async (request, response) => {
             validationError,
             oldInput,
             successMsg,
-            pageTitle: 'Add Product',
-            isAdmin: true
+            pageTitle: 'Add Product'
         });
     }
     catch (error) {
