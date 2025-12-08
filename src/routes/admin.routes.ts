@@ -4,24 +4,32 @@ import {check} from 'express-validator'
 import { error } from 'console';
 import multer from 'multer'
 import * as adminGuard from './guards/admin.guard.js' 
+import path from 'path'
 export const adminRouter = Router();
 
+const __dirname = path.resolve();
 
-adminRouter.get('/add', adminGuard.isAdmin , adminController.admin_addProducts_get);
-adminRouter.post('/add', adminGuard.isAdmin ,
-    multer({storage : multer.diskStorage({
-        destination : (req , file , cb)=>{
-            cb(null , 'images')
-        },
-        filename : (req , file ,cb)=>{
-            cb(null , Date.now() + '-' + file.originalname)
-        }
-    })}).single('image'), 
+const validateProductData = [
     check('image').custom((value , {req})=>{
         if(req.file) return true 
         else throw 'Image is required'
     }),
-    adminController.admin_addProducts_post);
+    check('name').trim().not().isEmpty().withMessage('Product Name is required'),
+    check('price').trim().not().isEmpty().withMessage('Price is required'),
+    check('description').trim().not().isEmpty().withMessage('Description is required'),
+    check('category').trim().not().isEmpty().withMessage('Category is required')
+
+];
+adminRouter.get('/add', adminGuard.isAdmin , adminController.admin_addProducts_get);
+adminRouter.post('/add', adminGuard.isAdmin ,
+    multer({storage : multer.diskStorage({
+        destination : (req , file , cb)=>{
+            cb(null , path.join(__dirname , 'images'));
+        },
+        filename : (req , file ,cb)=>{
+            cb(null , Date.now() + '-' + file.originalname)
+        }
+    })}).single('image'), validateProductData,adminController.admin_addProducts_post);
 
     
 

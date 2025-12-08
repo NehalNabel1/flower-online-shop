@@ -45,7 +45,8 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Set EJS as the view engine
-app.set('views', './views');
+//app.set('views' , './views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 // Serve static files from the "public" directory
 app.use(express.static('assets'));
