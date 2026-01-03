@@ -175,7 +175,7 @@ A demo video showcasing:
 * Cart and order workflow
 * Admin product and order management
 
-📌 https://drive.google.com/drive/folders/1xDLYqe7yu1TF90zaKFN5sYWp0XvTzaiY?usp=drive_link
+📌 https://drive.google.com/file/d/18zPqu0vi9Htf8LkC9JkHwaFz_u_Pu0EM/view?usp=sharing
 
 ---
 
@@ -199,4 +199,5 @@ Node.js • TypeScript • Express • MongoDB
 ## 📄 License
 
 This project is developed for educational and portfolio purposes.
+
 
