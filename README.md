@@ -30,7 +30,7 @@ The application follows clean architecture principles with clear separation betw
 
 ### 🛠️ Admin
 
-* Add, update, and delete products
+* Add and delete products
 * Upload product images using **Cloudinary**
 * Manage and update orders
 
@@ -123,18 +123,16 @@ online-shop/
 
 ## ⚙️ Environment Variables
 
-
-Create a `.env` file in the project root with the following variables:
+Create a `.env` file in the project root:
 
 ```env
-PORT=5000
-NODE_ENV=development
-SESSION_SECRET=your_session_secret_here
-DB_URL=your_mongodb_connection_string_here
-CLOUDINARY_CLOUD_NAME=your_cloud_name_here
-CLOUDINARY_API_KEY=your_cloudinary_api_key_here
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret_here
-
+PORT=4000
+MONGO_URI=your_mongodb_connection_string
+ACCESS_TOKEN_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_key
+CLOUDINARY_API_SECRET=your_cloudinary_secret
+```
 
 ---
 
@@ -201,3 +199,4 @@ Node.js • TypeScript • Express • MongoDB
 ## 📄 License
 
 This project is developed for educational and portfolio purposes.
+
