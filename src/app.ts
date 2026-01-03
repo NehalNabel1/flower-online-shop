@@ -21,8 +21,8 @@ import path from 'path'
 import mongoose from 'mongoose'
 
 const app = express();
-const __dirname = path.resolve();
-dotenv.config({ path: path.join(__dirname, '.env') });
+
+dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const DB_URL = process.env.DB_URL;
 if(! DB_URL){
@@ -55,7 +55,7 @@ app.use(express.urlencoded({extended :true}));
 app.use(express.json());
 // Set EJS as the view engine
 //app.set('views' , './views');
-app.set('views' , path.join(__dirname , 'views'));
+app.set('views' , path.join(process.cwd() , 'views'));
 app.set('view engine', 'ejs');
 // Serve static files from the "public" directory
 app.use(express.static('assets'));

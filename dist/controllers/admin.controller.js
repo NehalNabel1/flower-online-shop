@@ -2,6 +2,9 @@ import { json } from 'zod';
 import { validationResult } from 'express-validator';
 import * as ProductModel from '../models/products.model.js';
 import * as OrderModel from '../models/orders.model.js';
+import path from 'path';
+import * as cloudinary from '../utils/cloudinary.js';
+import fs from 'fs';
 export const admin_addProducts_get = async (request, response) => {
     try {
         const adminError = request.flash('adminError');
@@ -32,6 +35,7 @@ export const admin_addProducts_post = async (request, response) => {
             request.flash('oldInput', JSON.stringify(request.body));
             return response.redirect('/admin/add');
         }
+        //1. Validation
         if (!request.file) {
             request.flash('validationError', JSON.stringify({ type: 'field',
                 value: undefined,
@@ -40,18 +44,29 @@ export const admin_addProducts_post = async (request, response) => {
                 location: 'body' }));
             return response.redirect('/admin/add');
         }
+        //2. Get the path to the image 
+        //const imagePath = path.join(__dirname , `../../images/${request.file.path}`);
+        const imagePath = request.file.path;
+        //3. Upload to cloudinary 
+        const result = await cloudinary.cloudinaryUploadImage(imagePath);
+        //console.log(result);
         const productData = {
             name: request.body.name,
             price: request.body.price,
             category: request.body.category,
             description: request.body.description,
-            image: request.file.filename
+            image: { url: result.secure_url // final HTTPS image URL
+                ,
+                publicId: result.public_id // for deleting later
+            }
         };
         const product = await ProductModel.addProduct(productData);
         if (!product) {
             request.flash('adminError', 'Error i adding new product');
             return response.redirect('/admin/add');
         }
+        //4. remove image from the server
+        await fs.promises.unlink(imagePath);
         request.flash('successMsg', 'Product added successfully');
         return response.redirect('/admin/add');
     }
@@ -107,6 +122,28 @@ export const admin_deleteOrder_post = async (request, response) => {
     catch (error) {
         console.log('Error in delete order :', error);
         request.flash('OrderError', 'Server error , Please try again later.');
+        return response.status(500).send('Server Error');
+    }
+};
+export const admin_deleteProducts_post = async (request, response) => {
+    try {
+        if (!request.body.productId) {
+            request.flash('adminError', 'Product ID is required');
+            return response.redirect('/admin/add');
+        }
+        const product = await ProductModel.getProductsById(request.body.productId);
+        if (!product) {
+            request.flash('adminError', 'Error in deleting product');
+            return response.redirect('/');
+        }
+        await cloudinary.cloudinaryRemoveImage(product.image.publicId);
+        await ProductModel.deleteProductsById(request.body.productId);
+        request.flash('successMsg', 'Product deleted successfully');
+        return response.redirect('/');
+    }
+    catch (error) {
+        console.log('Error in deleting product :', error);
+        request.flash('adminError', 'Server error , Please try again later.');
         return response.status(500).send('Server Error');
     }
 };

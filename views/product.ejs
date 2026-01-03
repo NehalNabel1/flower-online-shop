@@ -18,7 +18,7 @@
         
         <div class="col col-12 col-md-6 ">
             
-                <img src="/<%=product.image%>" class="product-img " alt="Error Loading image">
+                <img src="<%= product.image.url%>" class="product-img " alt="Error Loading image">
                 <form action="/cart" method="post">
                     <div class="label">
                     <label for="quantity" > Quantity: </label>

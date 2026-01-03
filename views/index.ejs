@@ -46,7 +46,7 @@
         
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 ">
             <div class="card product-card" >
-                <img src="<%= product.image%>" class="card-img-top fixed-img" alt="Error Loading image">
+                <img src="<%= product.image.url%>" class="card-img-top fixed-img" alt="Error Loading image">
                 <div class="card-body">
                     <h5 class="card-title mb-2">
                     <a href="/product/<%= product._id%>" ><%=product.name%></a>
@@ -64,6 +64,13 @@
                       <input type="hidden" name="redirectTo" value="/">
                      <input type="submit" value="Add to cart" class="btn btn-primary add-btn">
                     </form>
+                     <%if(isAdmin){ %>  
+                        <br>
+                        <form action="/admin/product/delete" method="post">
+                            <input type="hidden" name="productId" value="<%=product._id%>">
+                            <input type="submit" value="Delete" class="btn btn-danger ">
+                        </form>
+                        <%}%>
                     
                 </div>
             </div>
@@ -77,6 +84,15 @@
 
         <%}%>
     </div>
+        <%if(adminError && adminError.length > 0){ %>
+        <p class="alert alert-danger text-center"><%= adminError %></p>
+            
+    <%}%>
+
+    <%if( successMsg &&  successMsg.length > 0){ %>
+        <p class="alert alert-success fade show text-center"><%= successMsg  %></p>
+            
+    <%}%>
 </div>
 </body>
 

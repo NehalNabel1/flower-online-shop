@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
     name :   requiredString ,
     price : requiredNumber ,
     category :  requiredString,
-    image :  requiredString,
+    image : {type : {url: requiredString , publicId : requiredString } , required: true },
     description :  requiredString
 
 });
@@ -92,6 +92,18 @@ export const addProduct = async(data :  NewProductType)=>{
         const savedProduct = product.save();
         return savedProduct;
 
+    }
+    catch(error){
+        console.log('Error connected to db',error);
+        throw error;
+    }
+}
+
+export const deleteProductsById= async(id : string ) : Promise<ProductType | null> =>{
+    try{
+        
+        const product = await Product.findByIdAndDelete(id);       
+        return product;
     }
     catch(error){
         console.log('Error connected to db',error);

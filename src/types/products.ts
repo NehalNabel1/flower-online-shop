@@ -6,6 +6,6 @@ export interface Product {
     name :  string ,
     price : number ,
     category : string,
-    image : string,
+    image : {url: string  , publicId :string },
     description : string
 }

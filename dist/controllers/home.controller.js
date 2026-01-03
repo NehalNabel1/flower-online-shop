@@ -1,6 +1,8 @@
 import * as ProductModel from '../models/products.model.js';
 export const product_home_get = async (request, response) => {
     try {
+        const adminError = request.flash('adminError');
+        const successMsg = request.flash('successMsg');
         console.log(request.session.userId);
         const category = request.query.category;
         let products;
@@ -13,7 +15,7 @@ export const product_home_get = async (request, response) => {
         }
         const validationErrorRaw = request.flash('validationError')[0];
         const validationError = validationErrorRaw ? JSON.parse(validationErrorRaw) : [];
-        response.render('index', { products, pageTitle: 'Home', validationError });
+        response.render('index', { products, pageTitle: 'Home', validationError, adminError, successMsg });
     }
     catch (error) {
         console.log('Error fetching products:', error);

@@ -7,7 +7,7 @@ import * as adminGuard from './guards/admin.guard.js'
 import path from 'path'
 export const adminRouter = Router();
 
-const __dirname = path.resolve();
+
 
 const validateProductData = [
     check('image').custom((value , {req})=>{
@@ -24,7 +24,7 @@ adminRouter.get('/add', adminGuard.isAdmin , adminController.admin_addProducts_g
 adminRouter.post('/add', adminGuard.isAdmin ,
     multer({storage : multer.diskStorage({
         destination : (req , file , cb)=>{
-            cb(null , path.join(__dirname , 'images'));
+            cb(null , path.join(process.cwd() , 'images'));
         },
         filename : (req , file ,cb)=>{
             cb(null , Date.now() + '-' + file.originalname)
@@ -37,3 +37,4 @@ adminRouter.get('/orders', adminGuard.isAdmin , adminController.admin_manageOrde
 adminRouter.post('/orders/update-status/:orderId', adminGuard.isAdmin , adminController.admin_updateOrder_post); 
 
 adminRouter.post('/orders/delete', adminGuard.isAdmin , adminController.admin_deleteOrder_post);   
+adminRouter.post('/product/delete', adminGuard.isAdmin , adminController.admin_deleteProducts_post);  
